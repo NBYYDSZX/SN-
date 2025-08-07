@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SN脚本中心</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .back-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        
+        .back-btn::before {
+            content: "←";
+            margin-right: 5px;
+        }
+        
+        .language-switcher {
+            background: #333;
+            border: none;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #4CAF50;
+        }
+        
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #45a049;
+        }
+        
+        .btn-secondary {
+            background-color: #333;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #444;
+        }
+        
+        .btn-icon {
+            margin-right: 8px;
+            width: 16px;
+            height: 16px;
+        }
+        
+        .search-container {
+            margin-bottom: 30px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: none;
+            background-color: #333;
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .search-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-btn:hover {
+            background-color: #45a049;
+        }
+        
+        .status-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .status-item {
+            text-align: center;
+            color: #888;
+        }
+        
+        .status-item.active {
+            color: #4CAF50;
+        }
+        
+        .script-container {
+            background-color: #333;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .script-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #4CAF50;
+        }
+        
+        .script-code {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #ccc;
+            word-break: break-all;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 3px 8px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .copy-btn:hover {
+            background-color: #45a049;
+        }
+        
+        .footer {
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+            margin-top: 30px;
+        }
+        
+        .search-history {
+            background-color: #333;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            min-height: 100px;
+        }
+        
+        .search-history-title {
+            margin-bottom: 10px;
+            color: #4CAF50;
+        }
+        
+        .search-history-item {
+            margin-bottom: 5px;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="back-btn">返回</button>
+        <select class="language-switcher">
+            <option>中文</option>
+            <option>English</option>
+        </select>
+    </div>
+    
+    <h1 class="title">SN脚本中心</h1>
+    
+    <div class="button-container">
+        <button class="btn btn-primary" id="copyCardBtn">复制卡密</button>
+        <button class="btn btn-secondary" id="qqGroupBtn">
+            <img src="https://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/logo_qq.png" class="btn-icon" alt="QQ">
+            QQ群
+        </button>
+    </div>
+    
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="搜索脚本..." id="searchInput">
+        <button class="search-btn" id="searchBtn">搜索</button>
+    </div>
+    
+    <div class="search-history">
+        <div class="search-history-title">搜索历史</div>
+        <div id="searchHistory">
+            <div class="search-history-item">暂无搜索记录</div>
+        </div>
+    </div>
+    
+    <div class="status-container">
+        <div class="status-item active">加工</div>
+        <div class="status-item">一些问题</div>
+        <div class="status-item">测试</div>
+        <div class="status-item">不工作</div>
+    </div>
+    
+    <div class="script-container">
+        <div class="script-title">Aimbot/Esp 所有游戏（无钥匙）</div>
+        <div class="script-code" id="scriptCode">
+            loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\34\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\120\105\97\110\105\110\103\49\53\49\47\83\78\72\85\66\47\109\97\105\110\47\83\78\104\117\98\46\108\117\97\34\41\41\40\41")()
+        </div>
+        <button class="copy-btn" id="copyScriptBtn">复制</button>
+    </div>
+    
+    <div class="footer">
+        snhub.com
+    </div>
+    
+    <script>
+        // 复制卡密功能
+        document.getElementById('copyCardBtn').addEventListener('click', function() {
+            const cardKey = '∇2024§XN_KM∏9R∆45';
+            navigator.clipboard.writeText(cardKey).then(() => {
+                alert('卡密已复制: ' + cardKey);
+            }).catch(err => {
+                console.error('复制失败:', err);
+            });
+        });
+        
+        // 跳转QQ群
+        document.getElementById('qqGroupBtn').addEventListener('click', function() {
+            window.open('https://qm.qq.com/q/1042716396', '_blank');
+        });
+        
+        // 复制脚本代码
+        document.getElementById('copyScriptBtn').addEventListener('click', function() {
+            const scriptCode = document.getElementById('scriptCode').textContent;
+            navigator.clipboard.writeText(scriptCode).then(() => {
+                alert('脚本代码已复制');
+            }).catch(err => {
+                console.error('复制失败:', err);
+            });
+        });
+        
+        // 点击脚本代码也可以复制
+        document.getElementById('scriptCode').addEventListener('click', function() {
+            const scriptCode = this.textContent;
+            navigator.clipboard.writeText(scriptCode).then(() => {
+                alert('脚本代码已复制');
+            }).catch(err => {
+                console.error('复制失败:', err);
+            });
+        });
+        
+        // 搜索功能
+        const searchHistory = [];
+        document.getElementById('searchBtn').addEventListener('click', function() {
+            const searchInput = document.getElementById('searchInput');
+            const searchTerm = searchInput.value.trim();
+            
+            if (searchTerm) {
+                searchHistory.unshift(searchTerm);
+                updateSearchHistory();
+                searchInput.value = '';
+                
+                // 这里可以添加实际的搜索逻辑
+                alert('正在搜索: ' + searchTerm);
+            }
+        });
+        
+        function updateSearchHistory() {
+            const historyContainer = document.getElementById('searchHistory');
+            
+            if (searchHistory.length === 0) {
+                historyContainer.innerHTML = '<div class="search-history-item">暂无搜索记录</div>';
+                return;
+            }
+            
+            historyContainer.innerHTML = '';
+            searchHistory.slice(0, 5).forEach(term => {
+                const item = document.createElement('div');
+                item.className = 'search-history-item';
+                item.textContent = term;
+                historyContainer.appendChild(item);
+            });
+        }
+    </script>
+</body>
+</html>
